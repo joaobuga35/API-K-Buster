@@ -14,5 +14,5 @@ class MovieSerializer(serializers.Serializer):
     synopsis = serializers.CharField(default=None)
     added_by = serializers.CharField(source="user.email", read_only=True)
 
-    def create(self, validated_data):
+    def create(self, validated_data: dict):
         return Movie.objects.create(**validated_data)

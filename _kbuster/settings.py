@@ -31,10 +31,7 @@ THIRD_PARTY_APPS = [
     "rest_framework",
 ]
 
-MY_APPS = [
-    "users",
-    "movies",
-]
+MY_APPS = ["users", "movies", "movies_orders"]
 
 # Application definition
 

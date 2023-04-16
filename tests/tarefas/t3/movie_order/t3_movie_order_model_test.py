@@ -1,5 +1,5 @@
 from django.test import TestCase
-from movies.models import MovieOrder
+from movies_orders.models import MovieOrder
 
 
 class MovieOrderModelTest(TestCase):
