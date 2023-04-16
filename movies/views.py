@@ -4,20 +4,22 @@ from movies.permissions import EmployeePermission
 from movies.serializers import MovieSerializer
 from movies.models import Movie
 from django.shortcuts import get_object_or_404
+from rest_framework.pagination import PageNumberPagination
 
 # Create your views here.
 
 
-class MovieView(APIView):
+class MovieView(APIView, PageNumberPagination):
     authentication_classes = [JWTAuthentication]
     permission_classes = [EmployeePermission]
 
     def get(self, request: Request) -> Response:
         movies = Movie.objects.all()
 
-        serializer = MovieSerializer(movies, many=True)
+        result_page = self.paginate_queryset(movies, request, view=self)
+        serializer = MovieSerializer(result_page, many=True)
 
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        return self.get_paginated_response(serializer.data)
         ...
 
     def post(self, request: Request) -> Response:
